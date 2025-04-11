@@ -1,14 +1,23 @@
+body {
+  background-color: black;
+  color: limegreen;
+  font-family: monospace;
+  text-align: center;
+  padding: 50px;
+}
 
-const sequence = [38,38,40,40,37,39,37,39,66,65]; // ↑ ↑ ↓ ↓ ← → ← → B A
-let input = [];
+.pixel-img {
+  image-rendering: pixelated;
+  width: 150px;
+  margin-bottom: 20px;
+}
 
-window.addEventListener("keydown", function(e) {
-  input.push(e.keyCode);
-  if (input.toString().indexOf(sequence.toString()) >= 0) {
-    document.querySelector(".container").style.display = "block";
-    input = [];
-  }
-});
-window.onload = () => {
-  document.querySelector(".container").style.display = "none";
-};
+.message h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.message p {
+  font-size: 1.2rem;
+  margin: 5px 0;
+}
