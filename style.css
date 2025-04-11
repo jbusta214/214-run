@@ -1,0 +1,31 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #00ffcc;
+  font-family: monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.container {
+  text-align: center;
+}
+.pixel-img {
+  width: 300px;
+  image-rendering: pixelated;
+  margin-bottom: 20px;
+}
+.message h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+.message p {
+  font-size: 1rem;
+}
+.blip {
+  color: #ffaa00;
+  margin-top: 20px;
+}
