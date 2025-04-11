@@ -1,23 +1,11 @@
 body {
   background-color: black;
-  color: white;
-  font-family: monospace;
-  text-align: center;
-  padding: 50px;
-}
-
-.pixel-img {
-  image-rendering: pixelated;
-  width: 150px;
-  margin-bottom: 20px;
-}
-
-.message h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.message p {
-  font-size: 1.2rem;
-  margin: 5px 0;
+  color: #00FF99; /* retro green */
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0;
+  padding: 40px;
+  text-align: left;
+  white-space: pre-wrap; /* preserves formatting */
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
