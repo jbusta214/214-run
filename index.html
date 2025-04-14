@@ -53,24 +53,24 @@
       100% { background: black; }
     }
 
-    /* Virtual keyboard for mobile */
     #virtual-keyboard {
       display: none;
       margin-top: 1rem;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.4rem;
       max-width: 600px;
       justify-content: center;
     }
 
     #virtual-keyboard button {
-      padding: 0.75rem 1.25rem;
+      padding: 0.5rem 0.75rem;
       font-size: 1rem;
       font-family: 'Courier New', Courier, monospace;
       background-color: #101010;
       color: #00FFB2;
       border: 2px solid #00FFB2;
       cursor: pointer;
+      width: 40px;
     }
 
     @media (max-width: 768px) {
@@ -96,36 +96,18 @@
     <pre id="terminal-output"></pre>
   </div>
 
-  <!-- Mobile Keyboard -->
-  <div id="virtual-keyboard">
-    <button data-key="38">↑</button>
-    <button data-key="40">↓</button>
-    <button data-key="37">←</button>
-    <button data-key="39">→</button>
-    <button data-key="66">B</button>
-    <button data-key="65">A</button>
-  </div>
+  <div id="virtual-keyboard"></div>
 
   <script>
     const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
     let inputSequence = [];
 
-    // Check if access has already been granted
     if (localStorage.getItem("accessGranted") === "true") {
       window.location.href = "/access.html";
     }
 
-    // Listen for physical keypress
     document.addEventListener("keydown", (e) => {
       registerInput(e.keyCode);
-    });
-
-    // Listen for tap on virtual buttons
-    document.querySelectorAll("#virtual-keyboard button").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const keyCode = parseInt(btn.getAttribute("data-key"));
-        registerInput(keyCode);
-      });
     });
 
     function registerInput(code) {
@@ -133,7 +115,6 @@
       if (inputSequence.length > konamiCode.length) {
         inputSequence.shift();
       }
-
       if (JSON.stringify(inputSequence) === JSON.stringify(konamiCode)) {
         activateTerminalSequence();
       }
@@ -154,10 +135,8 @@
     function activateTerminalSequence() {
       const terminal = document.getElementById("terminal");
       const output = document.getElementById("terminal-output");
-
       terminal.style.display = "block";
       let i = 0;
-
       const interval = setInterval(() => {
         if (i < fakeLogs.length) {
           output.textContent += fakeLogs[i] + "\n";
@@ -174,6 +153,24 @@
         }
       }, 150);
     }
+
+    // Create a full keyboard on mobile
+    const keyboard = document.getElementById("virtual-keyboard");
+    const keyMap = {
+      '↑': 38, '↓': 40, '←': 37, '→': 39, 'A': 65, 'B': 66,
+      'C': 67, 'D': 68, 'E': 69, 'F': 70, 'G': 71, 'H': 72,
+      'I': 73, 'J': 74, 'K': 75, 'L': 76, 'M': 77, 'N': 78,
+      'O': 79, 'P': 80, 'Q': 81, 'R': 82, 'S': 83, 'T': 84,
+      'U': 85, 'V': 86, 'W': 87, 'X': 88, 'Y': 89, 'Z': 90
+    };
+
+    Object.entries(keyMap).forEach(([key, code]) => {
+      const button = document.createElement("button");
+      button.textContent = key;
+      button.setAttribute("data-key", code);
+      button.addEventListener("click", () => registerInput(code));
+      keyboard.appendChild(button);
+    });
   </script>
 
 </body>
