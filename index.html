@@ -52,6 +52,32 @@
       50% { background: white; }
       100% { background: black; }
     }
+
+    /* Virtual keyboard for mobile */
+    #virtual-keyboard {
+      display: none;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      max-width: 600px;
+      justify-content: center;
+    }
+
+    #virtual-keyboard button {
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #101010;
+      color: #00FFB2;
+      border: 2px solid #00FFB2;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      #virtual-keyboard {
+        display: flex;
+      }
+    }
   </style>
 </head>
 <body>
@@ -70,6 +96,16 @@
     <pre id="terminal-output"></pre>
   </div>
 
+  <!-- Mobile Keyboard -->
+  <div id="virtual-keyboard">
+    <button data-key="38">↑</button>
+    <button data-key="40">↓</button>
+    <button data-key="37">←</button>
+    <button data-key="39">→</button>
+    <button data-key="66">B</button>
+    <button data-key="65">A</button>
+  </div>
+
   <script>
     const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
     let inputSequence = [];
@@ -79,8 +115,21 @@
       window.location.href = "/access.html";
     }
 
+    // Listen for physical keypress
     document.addEventListener("keydown", (e) => {
-      inputSequence.push(e.keyCode);
+      registerInput(e.keyCode);
+    });
+
+    // Listen for tap on virtual buttons
+    document.querySelectorAll("#virtual-keyboard button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const keyCode = parseInt(btn.getAttribute("data-key"));
+        registerInput(keyCode);
+      });
+    });
+
+    function registerInput(code) {
+      inputSequence.push(code);
       if (inputSequence.length > konamiCode.length) {
         inputSequence.shift();
       }
@@ -88,7 +137,7 @@
       if (JSON.stringify(inputSequence) === JSON.stringify(konamiCode)) {
         activateTerminalSequence();
       }
-    });
+    }
 
     const fakeLogs = [
       ">>echo.sys/init_0214.RUN",
