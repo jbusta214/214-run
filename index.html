@@ -66,4 +66,66 @@
     // END TRANSMISSION
   </div>
 
-  <div id="
+  <div id="terminal">
+    <pre id="terminal-output"></pre>
+  </div>
+
+  <script>
+    const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+    let inputSequence = [];
+
+    // Check if access has already been granted
+    if (localStorage.getItem("accessGranted") === "true") {
+      window.location.href = "/access.html";
+    }
+
+    document.addEventListener("keydown", (e) => {
+      inputSequence.push(e.keyCode);
+      if (inputSequence.length > konamiCode.length) {
+        inputSequence.shift();
+      }
+
+      if (JSON.stringify(inputSequence) === JSON.stringify(konamiCode)) {
+        activateTerminalSequence();
+      }
+    });
+
+    const fakeLogs = [
+      ">>echo.sys/init_0214.RUN",
+      "SRC: HIDDEN",
+      "FORMAT: UNCLASSIFIED",
+      "AUTH: INCOMPLETE",
+      "SEQUENCE RECEIVED...",
+      "AUTH: V5_OVERRIDE",
+      ">>FLAG: anomaly pattern = rising",
+      "ACCESS GRANTED...",
+      "Redirecting to /access.html"
+    ];
+
+    function activateTerminalSequence() {
+      const terminal = document.getElementById("terminal");
+      const output = document.getElementById("terminal-output");
+
+      terminal.style.display = "block";
+      let i = 0;
+
+      const interval = setInterval(() => {
+        if (i < fakeLogs.length) {
+          output.textContent += fakeLogs[i] + "\n";
+          i++;
+        } else {
+          clearInterval(interval);
+          localStorage.setItem("accessGranted", "true");
+          setTimeout(() => {
+            document.body.classList.add("flash");
+            setTimeout(() => {
+              window.location.href = "/access.html";
+            }, 300);
+          }, 500);
+        }
+      }, 150);
+    }
+  </script>
+
+</body>
+</html>
