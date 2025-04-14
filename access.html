@@ -38,7 +38,20 @@
       color: #00FF00;
       font-family: monospace;
       white-space: pre-wrap;
+      text-align: left;
       margin-top: 1rem;
+      display: inline-block;
+    }
+
+    .typing {
+      border-right: 2px solid #00FF00;
+      animation: blink 0.8s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
     }
   </style>
 </head>
@@ -47,14 +60,60 @@
 
   <div class="message-box">
     <h2>ACCESS GRANTED</h2>
-    <p>You've cracked the first layer. Not everyone gets this far.</p>
-    <p>But there's more.</p>
-    <p>The next sequence activates on:</p>
-    <div class="code-text">>> NEXT.UPLOAD = 05.04.2025</div>
-    <p>Monitor the feed.
-      <br />Adjust your coordinates.
-      <br />Keep watching.
-    </p>
+    <div class="code-text" id="terminal-output"></div>
   </div>
+
+  <script>
+    const lines = [
+      "/transmission.verified/",
+      ":: access = granted",
+      ":: sequence = incomplete",
+      ">> NEXT.UPLOAD = 05.04.2025",
+      ":: monitor.feed = active",
+      ":: adjust.coordinates",
+      ":: stay.ready",
+      "",
+      "// survival = rare",
+      "// progress = noted",
+      "",
+      ">> observe :: @ZeldaKid214",
+      "// interface contains anomaly patterns",
+      "// further clues may surface"
+    ];
+
+    const terminal = document.getElementById("terminal-output");
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function typeLine() {
+      if (lineIndex >= lines.length) {
+        terminal.classList.remove("typing");
+        return;
+      }
+
+      const line = lines[lineIndex];
+      const span = document.createElement("span");
+      span.textContent = "";
+      terminal.appendChild(span);
+
+      const typeChar = () => {
+        if (charIndex < line.length) {
+          span.textContent += line.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeChar, 30);
+        } else {
+          terminal.appendChild(document.createElement("br"));
+          lineIndex++;
+          charIndex = 0;
+          setTimeout(typeLine, 300);
+        }
+      };
+
+      typeChar();
+    }
+
+    terminal.classList.add("typing");
+    typeLine();
+  </script>
 </body>
 </html>
