@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>214.run</title>
   <style>
     body {
@@ -10,11 +10,13 @@
       color: #00FFB2;
       font-family: 'Courier New', Courier, monospace;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
     }
+
     .terminal {
       text-align: left;
       font-size: 1.2rem;
@@ -25,9 +27,35 @@
       background-color: #101010;
       box-shadow: 0 0 20px #00FFB2;
     }
+
+    #terminal {
+      background: black;
+      color: #00FF00;
+      font-family: monospace;
+      padding: 1rem;
+      width: 90%;
+      max-width: 800px;
+      height: 300px;
+      margin-top: 2rem;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      border: 1px solid lime;
+      display: none;
+    }
+
+    .flash {
+      animation: white-flash 0.3s ease-in-out;
+    }
+
+    @keyframes white-flash {
+      0% { background: black; }
+      50% { background: white; }
+      100% { background: black; }
+    }
   </style>
 </head>
 <body>
+
   <div class="terminal">
     > ARTIFACT[001]  
     :: TYPE = enigma  
@@ -37,5 +65,5 @@
     :: WINDOW = t.b.d  
     // END TRANSMISSION
   </div>
-</body>
-</html>
+
+  <!-- Hidden
