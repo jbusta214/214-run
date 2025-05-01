@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PHASE 2 - 214.run</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #00FFB2;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .terminal-box {
+      border: 2px solid #00FFB2;
+      padding: 1.5rem;
+      background-color: #101010;
+      box-shadow: 0 0 20px #00FFB2;
+      width: 90%;
+      max-width: 700px;
+      text-align: left;
+    }
+
+    .input-field {
+      background-color: #000;
+      color: #00FF00;
+      border: 1px solid #00FFB2;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 0.5rem;
+      width: 100%;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+
+    .submit-btn {
+      margin-top: 1rem;
+      background-color: #00FFB2;
+      color: #000;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #00c99c;
+    }
+
+    .feedback {
+      color: #FF5555;
+      margin-top: 1rem;
+    }
+
+    .cipher-image {
+      max-width: 90%;
+      height: auto;
+      margin-bottom: 2rem;
+      border: 2px solid #00FFB2;
+    }
+  </style>
+</head>
+<body>
+  <img src="cipher-image.png" alt="Cipher Puzzle" class="cipher-image" />
+  <div class="terminal-box">
+    <p>// AUTHORIZATION REQUIRED</p>
+    <p>:: query.response = pending</p>
+    <p>:: enter code to proceed:</p>
+    <input type="text" id="codeInput" class="input-field" placeholder="Enter code..." />
+    <button class="submit-btn" onclick="checkCode()">SUBMIT</button>
+    <div id="feedback" class="feedback"></div>
+  </div>
+
+  <script>
+    function checkCode() {
+      const input = document.getElementById("codeInput").value.trim().toUpperCase().replace(/\s+/g, '');
+      const correctCode = "STARVOYAGER";
+      const feedback = document.getElementById("feedback");
+
+      if (input === correctCode) {
+        window.location.href = "phase2-success.html";
+      } else {
+        feedback.textContent = "ACCESS DENIED. TRY AGAIN.";
+      }
+    }
+  </script>
+</body>
+</html>
