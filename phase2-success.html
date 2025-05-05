@@ -22,7 +22,7 @@
     .badge-image {
       max-width: 90%;
       height: auto;
-      margin: 2rem 0;
+      margin-bottom: 2rem;
       border: 2px solid #00FFB2;
     }
 
@@ -36,17 +36,19 @@
       text-align: left;
     }
 
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
     .glitch-line {
       animation: blink 0.7s infinite;
       border-right: 2px solid #00FF00;
     }
-
-    @keyframes blink {
-      50% { border-color: transparent; }
-    }
   </style>
 </head>
 <body>
+
+  <img src="RELIC-2W4-02.png" alt="RELIC-2W4-02 Badge" class="badge-image" />
 
   <div class="terminal-box">
     <p>:: TRANSMISSION // 214.2B</p>
@@ -66,8 +68,6 @@
     <br/>
     <p>// next.phase.deploy = 06.05.2025</p>
   </div>
-
-  <img src="RELIC-2W4-02.png" alt="RELIC-2W4-02 Badge" class="badge-image" />
 
 </body>
 </html>
